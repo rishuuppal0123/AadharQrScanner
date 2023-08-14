@@ -69,19 +69,21 @@ class MainActivity : AppCompatActivity() {
         startNewActivityButton.visibility = View.INVISIBLE
         val scannerView: CodeScannerView = findViewById(R.id.scannerView)
         val kEnv = KEnvironment.PRODUCTION;
-        val retrofitClient = RetrofitClient().getClient()
+        val retrofitClient = Retrofit.Builder()
+            .baseUrl("https://api.karza.in")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
         val xKarzaKey = "1Vyb1DnuX2pdTpA"
-        val apiInterface = retrofitClient?.create(AadhaarKarzaApi::class.java)
+        val apiInterface = retrofitClient.create(AadhaarKarzaApi::class.java)
         val karzaTokenResponse = runBlocking {
             val body = mutableMapOf<String, Any?>()
             body["productId"] = listOf("aadhaar_xml")
-            apiInterface?.getKarzaToken(
+            apiInterface.getKarzaToken(
                 xKarzaKey = xKarzaKey,
                 content_type = "application/json",
                 body = body
             )
         }
-        if(karzaTokenResponse != null) {
             val karzaToken = karzaTokenResponse.result?.data?.karzaToken
             val email = "rishuuppal0123@gmail.com"
             val mobile = "7668173400"
@@ -120,5 +122,4 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
 }
