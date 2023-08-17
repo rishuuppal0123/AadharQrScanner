@@ -31,7 +31,7 @@ fun CustomizedTextField(
     modifier: Modifier = Modifier,
     placeholder: String? = null,
     textStyle: TextStyle = TextStyle(
-        fontSize = 14.sp,
+        fontSize = 16.sp,
         fontFamily = FontFamily.SansSerif,
         fontWeight = FontWeight.Normal
     ),

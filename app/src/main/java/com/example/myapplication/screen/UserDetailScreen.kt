@@ -16,7 +16,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,7 +31,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -79,15 +86,51 @@ fun SecondScreen(navController: NavController) {
                     .build()
             )
         }
-        Text(
-            text = "Hi,\nLet's start with some basic details:",
-            style = TextStyle(
-                fontSize = 40.sp,
-                fontFamily = FontFamily.SansSerif,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.Blue
+        val id = "id"
+        val greetingText = buildAnnotatedString {
+            append("Hi ")
+            appendInlineContent(id, "icon")
+        }
+        val inlineContent = remember {
+            mapOf(
+                Pair(
+                    id,
+                    InlineTextContent(
+                        Placeholder(
+                            width = 32.sp,
+                            height = 32.sp,
+                            placeholderVerticalAlign = PlaceholderVerticalAlign.Center
+                        )
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_hand),
+                            contentDescription = null,
+                        )
+                    }
+                )
             )
-        )
+        }
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = greetingText,
+                inlineContent = inlineContent,
+                style = TextStyle(
+                    fontSize = 40.sp,
+                    fontFamily = FontFamily.SansSerif,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Blue
+                )
+            )
+            Text(
+                text = "Let's start with some basic details:",
+                style = TextStyle(
+                    fontSize = 40.sp,
+                    fontFamily = FontFamily.SansSerif,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Blue
+                )
+            )
+        }
         CustomizedTextField(
             placeholder = "Name",
             label = "Enter Your Name:",
@@ -99,7 +142,7 @@ fun SecondScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp, bottom = 12.dp),
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(4.dp),
             contentPadding = PaddingValues(16.dp),
             border = BorderStroke(width = 1.dp, color = Color.Gray),
             onClick = {
