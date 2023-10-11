@@ -70,7 +70,7 @@ class MainActivity2 : AppCompatActivity() {
             .baseUrl("https://api.karza.in")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val xKarzaKey = "1Vyb1DnuX2pdTpA"
+        val xKarzaKey = ""
         val apiInterface = retrofitClient.create(AadhaarKarzaApi::class.java)
         val karzaTokenResponse = runBlocking {
             val body = mutableMapOf<String, Any?>()
@@ -82,9 +82,9 @@ class MainActivity2 : AppCompatActivity() {
             )
         }
         val karzaToken = karzaTokenResponse.result?.data?.karzaToken
-        val email = "rebelkhatri0123@gmail.com"
-        val mobile = "9897451555"
-        val caseId = "paytail-user"
+        val email = ""
+        val mobile = ""
+        val caseId = ""
         if (karzaToken != null) {
             val codeScanner =
                 CodeScanner(this, scannerView, kEnv, karzaToken, mobile, email, caseId)
