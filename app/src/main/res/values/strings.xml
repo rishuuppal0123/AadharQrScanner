@@ -12,4 +12,6 @@
     <string name="copy_text">Copy</string>
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_activity_main3">MainActivity3</string>
+    <string name="developed_with">Developed with</string>
+    <string name="copyright_reserved">Copyright reserved.</string>
 </resources>

@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -24,6 +25,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.internal.enableLiveLiterals
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -97,14 +99,15 @@ fun SecondScreen(navController: NavController) {
                     id,
                     InlineTextContent(
                         Placeholder(
-                            width = 32.sp,
-                            height = 32.sp,
+                            width = 40.sp,
+                            height = 40.sp,
                             placeholderVerticalAlign = PlaceholderVerticalAlign.Center
                         )
                     ) {
-                        Icon(
+                        Image(
                             painter = painterResource(id = R.drawable.ic_hand),
                             contentDescription = null,
+                            modifier = Modifier.fillMaxSize()
                         )
                     }
                 )
@@ -122,7 +125,7 @@ fun SecondScreen(navController: NavController) {
                 )
             )
             Text(
-                text = "Let's start with some basic details:",
+                text = "Let's start with some basic details",
                 style = TextStyle(
                     fontSize = 40.sp,
                     fontFamily = FontFamily.SansSerif,
@@ -167,6 +170,7 @@ fun SecondScreen(navController: NavController) {
         intent.putExtra(uiState.name, "name")
         intent.putExtra(uiState.email, "email")
         Button(
+            enabled = uiState.name.isNotEmpty() && !uiState.email.isNullOrEmpty(),
             modifier = Modifier.align(Alignment.CenterHorizontally),
             onClick = { context.startActivity(Intent(context, MainActivity2::class.java)) }) {
             Row(

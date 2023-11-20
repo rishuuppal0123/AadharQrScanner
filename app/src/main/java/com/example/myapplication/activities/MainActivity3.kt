@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,7 +31,9 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.myapplication.CraftedWithLove
 import com.example.myapplication.R
+import com.example.myapplication.activities.ui.theme.Purple40
 import com.example.myapplication.screen.SecondScreen
 
 class MainActivity3 : ComponentActivity() {
@@ -62,17 +65,17 @@ fun ComposeNavigation() {
 fun FirstScreen(navController: NavController) {
     Column(
         modifier = Modifier
-            .padding(top = 48.dp, start = 24.dp, end = 24.dp, bottom = 32.dp)
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(top = 48.dp, start = 24.dp, end = 24.dp, bottom = 32.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "QR Aadhaar\nNexus",
             style = TextStyle(
-                fontSize = 60.sp,
-                fontFamily = FontFamily.SansSerif,
+                fontSize = 56.sp,
+                fontFamily = FontFamily.Cursive,
                 fontWeight = FontWeight.Bold,
-                color = Color.Blue,
+                color = Purple40,
                 textAlign = TextAlign.Center
             )
         )
@@ -84,8 +87,8 @@ fun FirstScreen(navController: NavController) {
             ).value,
             iterations = LottieConstants.IterateForever,
             modifier = Modifier
-                .padding(top = 4.dp)
-                .fillMaxWidth()
+                .padding(vertical = 20.dp)
+                .size(250.dp)
         )
         Button(
             onClick = { navController.navigate("second_screen") }) {
@@ -98,7 +101,7 @@ fun FirstScreen(navController: NavController) {
                     style = TextStyle(
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = FontFamily.SansSerif,
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         color = Color.White
                     )
                 )
@@ -116,5 +119,7 @@ fun FirstScreen(navController: NavController) {
                 )
             }
         }
+        Spacer(modifier = Modifier.weight(1f))
+        CraftedWithLove()
     }
 }
