@@ -10,10 +10,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.example.myapplication.R
 import com.example.myapplication.api.AadhaarKarzaApi
 import com.example.myapplication.viewModel.MainViewModel
-import com.example.myapplication.R
-import com.example.myapplication.RetrofitClient
 import com.google.gson.Gson
 import com.karza.qrcodescansdk.CodeScanner
 import com.karza.qrcodescansdk.CodeScannerView
@@ -23,9 +22,7 @@ import kotlinx.coroutines.runBlocking
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
-class MainActivity : AppCompatActivity() {
-
+class MainActivity2 : AppCompatActivity() {
     companion object {
         private const val CAMERA_PERMISSION_CODE = 100
     }
@@ -34,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main2)
         if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
             requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_PERMISSION_CODE)
         } else {
@@ -53,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == CAMERA_PERMISSION_CODE) {
+        if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "camera permission accepted", Toast.LENGTH_LONG).show();
                 permissionGranted()
@@ -73,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("https://api.karza.in")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val xKarzaKey = "1Vyb1DnuX2pdTpA"
+        val xKarzaKey = ""
         val apiInterface = retrofitClient.create(AadhaarKarzaApi::class.java)
         val karzaTokenResponse = runBlocking {
             val body = mutableMapOf<String, Any?>()
@@ -84,42 +81,42 @@ class MainActivity : AppCompatActivity() {
                 body = body
             )
         }
-            val karzaToken = karzaTokenResponse.result?.data?.karzaToken
-            val email = "rishuuppal0123@gmail.com"
-            val mobile = "7668173400"
-            val caseId = "paytail_user"
-            if (karzaToken != null) {
-                val codeScanner =
-                    CodeScanner(this, scannerView, kEnv, karzaToken, mobile, email, caseId)
-                codeScanner.decodeCallback = DecodeCallback { result ->
-                    if (!result.isEmpty) {
-                        if (result.getBoolean("isError")) {
-                            codeScanner.releaseResources()
-                            Toast.makeText(this, "some error occurred", Toast.LENGTH_LONG).show()
-                        } else {
-                            startNewActivityButton.visibility = View.VISIBLE
-                            startNewActivityButton.setOnClickListener {
-                                val intent =
-                                    Intent(this@MainActivity, AadhaarQrResultActivity::class.java)
-                                startActivity(intent)
-                                val bundle = Bundle()
-                                bundle.putString("bundle", Gson().toJson(result))
-                                intent.putExtras(bundle)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                startActivity(intent)
-                                startNewActivityButton.isVisible = !startNewActivityButton.isVisible
-                                codeScanner.startPreview()
-                            }
-                            codeScanner.releaseResources()
-                        }
-                    } else {
+        val karzaToken = karzaTokenResponse.result?.data?.karzaToken
+        val email = ""
+        val mobile = ""
+        val caseId = ""
+        if (karzaToken != null) {
+            val codeScanner =
+                CodeScanner(this, scannerView, kEnv, karzaToken, mobile, email, caseId)
+            codeScanner.decodeCallback = DecodeCallback { result ->
+                if (!result.isEmpty) {
+                    if (result.getBoolean("isError")) {
                         codeScanner.releaseResources()
-                        Toast.makeText(this, "Empty result received", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "some error occurred", Toast.LENGTH_LONG).show()
+                    } else {
+                        startNewActivityButton.visibility = View.VISIBLE
+                        startNewActivityButton.setOnClickListener {
+                            val intent =
+                                Intent(this@MainActivity2, AadhaarQrResultActivity::class.java)
+                            startActivity(intent)
+                            val bundle = Bundle()
+                            bundle.putString("bundle", Gson().toJson(result))
+                            intent.putExtras(bundle)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            startActivity(intent)
+                            startNewActivityButton.isVisible = !startNewActivityButton.isVisible
+                            codeScanner.startPreview()
+                        }
+                        codeScanner.releaseResources()
                     }
-                }
-                scannerView.setOnClickListener {
-                    codeScanner.startPreview()
+                } else {
+                    codeScanner.releaseResources()
+                    Toast.makeText(this, "Empty result received", Toast.LENGTH_LONG).show()
                 }
             }
+            scannerView.setOnClickListener {
+                codeScanner.startPreview()
+            }
         }
+    }
 }
