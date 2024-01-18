@@ -5,6 +5,8 @@ Welcome to the Cdoe scanner application! Get user insights, the details directly
 
 ![App_first _Screen](https://github.com/rishuuppal0123/AadharQrScanner/assets/55997233/23a8955c-6512-4279-b6e7-cad6715d3b12)
 
+https://github.com/rishuuppal0123/AadharQrScanner/assets/55997233/49e9a5cd-478d-41b1-8b26-27b413283e55
+
 
 
 
