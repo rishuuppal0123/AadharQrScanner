@@ -3,6 +3,7 @@
 Welcome to the Cdoe scanner application! Get user insights, the details directly fetched from the Aadhaar Qr Code Database as long as you are authenticated with proper permissions.
 ## Screenshots
 
+![App_first _Screen](https://github.com/rishuuppal0123/AadharQrScanner/assets/55997233/23a8955c-6512-4279-b6e7-cad6715d3b12)
 
 
 
